@@ -1,0 +1,1 @@
+const{contextBridge:e,ipcRenderer:o}=require("electron");e.exposeInMainWorld("electronPayment",{close:()=>{o.invoke("payments:view:close")},copy:e=>{o.invoke("payments:view:copyToClipboard",e)}});
