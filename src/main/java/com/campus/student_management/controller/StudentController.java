@@ -1,15 +1,11 @@
 package com.campus.student_management.controller;
 
-import java.util.List;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.campus.student_management.entity.Student;
 import com.campus.student_management.service.StudentService;
+import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/students")
@@ -29,11 +25,36 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
+    // GET STUDENT BY ID
+    @GetMapping("/{id}")
+    public Student getStudentById(
+            @PathVariable Long id) {
+        
+        return studentService.getStudentById(id);
+    }
+
     // CREATE STUDENT
     @PostMapping
     public Student createStudent(
-            @RequestBody Student student) {
+            @RequestBody @Valid Student student) {
 
         return studentService.createStudent(student);
+    }
+
+    // UPDATE STUDENT
+    @PutMapping("/{id}")
+    public Student updateStudent(
+            @PathVariable Long id,
+            @RequestBody @Valid Student student) {
+        
+        return studentService.updateStudent(id, student);
+    }
+
+    // DELETE STUDENT
+    @DeleteMapping("/{id}")
+    public String deleteStudent(
+            @PathVariable Long id) {
+        
+        return studentService.deleteStudent(id);
     }
 }
